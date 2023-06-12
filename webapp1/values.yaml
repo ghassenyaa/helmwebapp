@@ -1,0 +1,20 @@
+rentcarApp:
+  appName: node-app
+
+  DeploymentName: node-deployment
+
+  image:
+    name: gastonjacob/rentcar
+    tag: v1.3.0
+  port: 4000
+database:
+  mysqlAppName: mysql
+
+  mysqlImage:
+    name: mysql
+    tag: latest
+
+
+ingress:
+
+  hosts: cluster1.softylines.com

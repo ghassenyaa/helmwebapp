@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.database.mysqlAppName }}
+spec:
+  clusterIP: None
+  ports:
+    - port: 3306
+      targetPort: 3306
+  selector:
+    app: {{ .Values.database.mysqlAppName }}
+
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ .Values.database.mysqlAppName }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.database.mysqlAppName }}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.database.mysqlAppName }}
+    spec:
+      containers:
+        - image: "{{ .Values.database.mysqlImage.name }}:{{ .Values.database.mysqlImage.tag }}"
+          name: {{ .Values.database.mysqlAppName }}
+          env:
+            # Use secret in real usage
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+          ports:
+            - containerPort: 3306
+              name: {{ .Values.database.mysqlAppName }}
+          volumeMounts:
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim
