@@ -1,11 +1,11 @@
-rentcarApp:
+webApp:
   appName: node-app
 
   DeploymentName: node-deployment
 
   image:
-    name: gastonjacob/rentcar
-    tag: v1.5.0
+    name: gastonjacob/webapp
+    tag: v1
   port: 4000
 database:
   mysqlAppName: mysql
@@ -13,6 +13,8 @@ database:
   mysqlImage:
     name: mysql
     tag: latest
+  
+  port: 3306
 
 
 ingress:

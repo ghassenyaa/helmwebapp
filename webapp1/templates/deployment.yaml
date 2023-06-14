@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment  
 metadata:
-  name: {{ .Values.rentcarApp.appName }}
+  name: {{ .Values.webApp.appName }}
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: {{ .Values.rentcarApp.appName }}
+      app: {{ .Values.webApp.appName }}
   template:
     metadata:
       labels:
-        app: {{ .Values.rentcarApp.appName }}
+        app: {{ .Values.webApp.appName }}
     spec:
       containers:
-        - name: {{ .Values.rentcarApp.appName }}
-          image: "{{ .Values.rentcarApp.image.name }}:{{ .Values.rentcarApp.image.tag }}"
+        - name: {{ .Values.webApp.appName }}
+          image: "{{ .Values.webApp.image.name }}:{{ .Values.webApp.image.tag }}"
           ports:
-            - containerPort: {{ .Values.rentcarApp.port }}
+            - containerPort: {{ .Values.webApp.port }}
           env:
             - name: DB_HOST
               valueFrom:
@@ -45,14 +45,4 @@ spec:
                   key: db_name
       imagePullSecrets:
         - name: registrypullsecret
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ .Values.rentcarApp.appName }}
-spec:
-  selector:
-    app: {{ .Values.rentcarApp.appName }}
-  ports:
-    - port: 80
-      targetPort: {{ .Values.rentcarApp.port }}
+
