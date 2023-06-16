@@ -15,9 +15,9 @@ node {
                         sh "git config user.name ghassenyaa"
                     dir('webapp1') {
                          // Read values.yaml
-                        def values = readYaml(file: 'values.yaml')
-                        def tags = values.collect { it.value.image?.tag }.findAll()
-                        if (!tags.empty) {
+                     def values = readYaml(file: 'values.yaml')
+                     def tags = values.collect { it.value.image?.tag }.findAll()
+                     if (!tags.empty) {
                         def firstTag = tags[0]
                         //def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
                         //sh "git switch master"
