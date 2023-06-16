@@ -5,14 +5,14 @@ webApp:
 
   image:
     name: gastonjacob/webapp
-    tag: v1
+    tag: 14
   port: 4000
 database:
   mysqlAppName: mysql
 
   mysqlImage:
     name: mysql
-    tag: latest
+    tag: 14
   
   port: 3306
 
