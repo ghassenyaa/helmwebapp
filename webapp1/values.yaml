@@ -12,7 +12,7 @@ database:
 
   mysqlImage:
     name: mysql
-    tag: 8
+    tag: latest
   
   port: 3306
 
