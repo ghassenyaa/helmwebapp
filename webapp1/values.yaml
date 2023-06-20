@@ -5,7 +5,7 @@ webApp:
 
   image:
     name: gastonjacob/webapp
-    tag: v1
+    tag: 66
   port: 4000
 database:
   mysqlAppName: mysql
