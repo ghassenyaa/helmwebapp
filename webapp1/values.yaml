@@ -19,4 +19,4 @@ database:
 
 ingress:
 
-  hosts: cluster1.softylines.com
+  hosts: testrentcarapi.softylines.com
