@@ -23,6 +23,7 @@ spec:
           image: "{{ .Values.webApp.image.name }}:{{ .Values.webApp.image.tag }}"
           ports:
             - containerPort: {{ .Values.webApp.port }}
+          env:
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
