@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: {{ .Values.webApp.appName }}
 spec:
-  replicas: 20
+  replicas: 2
   selector:
     matchLabels:
       app: {{ .Values.webApp.appName }}
