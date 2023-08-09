@@ -1,9 +1,10 @@
+
 apiVersion: apps/v1
-kind: Deployment  
+kind: Deployment
 metadata:
   name: {{ .Values.webApp.appName }}
 spec:
-  replicas: 1
+  replicas: 20
   selector:
     matchLabels:
       app: {{ .Values.webApp.appName }}
@@ -11,13 +12,17 @@ spec:
     metadata:
       labels:
         app: {{ .Values.webApp.appName }}
+      annotations:
+        gke-gcsfuse/volumes: "true" #Required
+        gke-gcsfuse/cpu-limit: 500m
+        gke-gcsfuse/memory-limit: 100Mi
+        gke-gcsfuse/ephemeral-storage-limit: 5Gi
     spec:
       containers:
         - name: {{ .Values.webApp.appName }}
           image: "{{ .Values.webApp.image.name }}:{{ .Values.webApp.image.tag }}"
           ports:
             - containerPort: {{ .Values.webApp.port }}
-          env:
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
@@ -32,7 +37,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: db-credentials
-                  key: username 
+                  key: username
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -43,6 +48,7 @@ spec:
                 secretKeyRef:
                   name: db-credentials
                   key: db_name
+
+     
       imagePullSecrets:
         - name: registrypullsecret
-
